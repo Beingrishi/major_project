@@ -1,0 +1,31 @@
+#include <dht.h>
+#define dht_apin 4
+
+int sensorValue;
+int a=A0;
+int pin=5;
+int res=0;
+dht DHT;
+void setup()
+{  
+  Serial.begin(9600);
+  pinMode(a,INPUT);  
+  pinMode(dht_apin,INPUT);
+  pinMode(pin,INPUT);                         
+}
+void loop()
+{
+    sensorValue = analogRead(a);
+    res=digitalRead(pin);       
+    Serial.print("Air Quality=");
+    Serial.print(sensorValue, DEC);               
+    Serial.println(" PPM");
+    DHT.read11(dht_apin);
+    Serial.print("Current Humidity = ");
+    Serial.print(DHT.humidity);
+    Serial.println(" %");
+    Serial.print("Temperature = ");
+    Serial.print(DHT.temperature); 
+    Serial.println(" C  ");
+    delay(3000);                                   
+}
